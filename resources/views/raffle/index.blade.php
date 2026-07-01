@@ -191,7 +191,7 @@
         .verify-value {
             font-size: calc(var(--card-w) * 0.046);
             font-weight: bold;
-            color: #241111;
+            color: #ffffff;
             word-break: break-word;
         }
 
@@ -290,10 +290,11 @@
             <div class="spacer"></div>
             <div class="button-stack">
                 <button type="button" class="img-button" id="btn-edit">
-                    <img src="{{ asset('raffle_draw/03/Button_03_1.png') }}" alt="Edit Details">
+                    <img src="{{ asset('raffle_draw/03/Button_03_2.png') }}" alt="Edit Details">
                 </button>
-                <button type="button" class="img-button" id="btn-submit">
-                    <img src="{{ asset('raffle_draw/03/Button_03_2.png') }}" alt="Confirm & Submit">
+
+                 <button type="button" class="img-button" id="btn-submit">
+                    <img src="{{ asset('raffle_draw/03/Button_03_1.png') }}" alt="Confirm & Submit">
                 </button>
             </div>
         </section>
