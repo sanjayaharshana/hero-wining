@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+    <meta name="csrf-token" content="P8J3Kws3mqWv9n7RGRRdAewpZbWGmyoCa6lYbGBi">
+    <title>Hero | Abans Auto - Grand Draw</title>
+    <style>
+        * { box-sizing: border-box; }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            background: #0a0000;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .raffle-shell {
+            --card-w: min(100vw, 480px);
+            max-width: 480px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @media (min-width: 481px) {
+            html, body {
+                height: 100%;
+            }
+
+            body {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .raffle-shell {
+                width: 100%;
+                box-shadow: 0 0 60px rgba(0, 0, 0, 0.6);
+            }
+        }
+
+        .screen {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100dvh;
+            width: 100%;
+            padding: 6vh 7% 5vh;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .screen.active {
+            display: flex;
+        }
+
+        .spacer {
+            flex: 1 1 auto;
+        }
+
+        .headline-logo {
+            width: 92%;
+            max-width: 420px;
+            margin-top: 10vh;
+        }
+
+        .headline-logo.small {
+            width: 65%;
+            margin-top: 4vh;
+        }
+
+        .tagline {
+            width: 82%;
+            max-width: 380px;
+            margin-top: 4vh;
+        }
+
+        .tagline.small {
+            width: 70%;
+            margin-top: 2vh;
+        }
+
+        .img-button {
+            background: none;
+            border: none;
+            padding: 0;
+            width: 72%;
+            max-width: 320px;
+            cursor: pointer;
+            margin-bottom: 6vh;
+            display: block;
+        }
+
+        .img-button img {
+            width: 100%;
+            display: block;
+        }
+
+        .img-button:active {
+            transform: scale(0.97);
+        }
+
+        .img-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .details-form {
+            width: 100%;
+            margin-top: 4vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3vh;
+        }
+
+        .field-wrap {
+            position: relative;
+            width: 92%;
+        }
+
+        .field-wrap img {
+            width: 100%;
+            display: block;
+        }
+
+        .field-wrap input {
+            position: absolute;
+            top: 22%;
+            bottom: 22%;
+            left: 9%;
+            right: 9%;
+            border: none;
+            outline: none;
+            background: transparent;
+            font-size: calc(var(--card-w) * 0.042);
+            font-weight: bold;
+            color: #2a0000;
+            padding: 0;
+        }
+
+        .field-wrap input::placeholder {
+            color: #b08a8a;
+            font-weight: bold;
+        }
+
+        .error-text {
+            color: #ff6b6b;
+            font-weight: bold;
+            text-align: center;
+            margin: 1.5vh 0 0;
+            font-size: calc(var(--card-w) * 0.036);
+        }
+
+        .verify-card {
+            position: relative;
+            width: 96%;
+            margin-top: 4vh;
+        }
+
+        .verify-card img {
+            width: 100%;
+            display: block;
+        }
+
+        .verify-content {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 2vh;
+            padding: 0 10%;
+        }
+
+        .verify-row {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .verify-label {
+            font-size: calc(var(--card-w) * 0.032);
+            font-weight: bold;
+            letter-spacing: 0.05em;
+            color: #b3181c;
+            text-transform: uppercase;
+        }
+
+        .verify-value {
+            font-size: calc(var(--card-w) * 0.046);
+            font-weight: bold;
+            color: #ffffff;
+            word-break: break-word;
+        }
+
+        .button-stack {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .button-stack .img-button {
+            margin-bottom: 3vh;
+        }
+
+        .success-title {
+            color: #ffffff;
+            text-shadow: 0 0 12px rgba(255, 0, 0, 0.7);
+            font-size: calc(var(--card-w) * 0.08);
+            text-align: center;
+            margin: 0;
+        }
+
+        .success-text {
+            color: #f2e4e4;
+            text-align: center;
+            font-size: calc(var(--card-w) * 0.042);
+            margin-top: 2vh;
+            max-width: 320px;
+        }
+    </style>
+</head>
+<body>
+    <div class="raffle-shell">
+
+        
+        <section id="screen-1" class="screen active" style="background-image:url('http://127.0.0.1:8123/raffle_draw/01/BG.jpg')">
+            <img class="headline-logo" src="http://127.0.0.1:8123/raffle_draw/01/Logo_01.png" alt="Accelerating towards the future">
+            <img class="tagline" src="http://127.0.0.1:8123/raffle_draw/01/Text_01.png" alt="Be part of the Grand Draw">
+            <div class="spacer"></div>
+            <button type="button" class="img-button" id="btn-start">
+                <img src="http://127.0.0.1:8123/raffle_draw/01/Button_01.png" alt="Let's Ride">
+            </button>
+        </section>
+
+        
+        <section id="screen-2" class="screen" style="background-image:url('http://127.0.0.1:8123/raffle_draw/02/BG.jpg')">
+            <img class="headline-logo small" src="http://127.0.0.1:8123/raffle_draw/02/Logo_02.png" alt="Accelerating towards the future">
+            <img class="tagline small" src="http://127.0.0.1:8123/raffle_draw/02/Text_02.png" alt="Enter your details">
+
+            <form class="details-form" id="details-form" novalidate>
+                <div class="field-wrap">
+                    <img src="http://127.0.0.1:8123/raffle_draw/02/Details_Enter_Area.png" alt="">
+                    <input type="text" id="first_name" name="first_name" placeholder="First Name" autocomplete="given-name" required>
+                </div>
+                <div class="field-wrap">
+                    <img src="http://127.0.0.1:8123/raffle_draw/02/Details_Enter_Area.png" alt="">
+                    <input type="text" id="last_name" name="last_name" placeholder="Last Name" autocomplete="family-name" required>
+                </div>
+                <div class="field-wrap">
+                    <img src="http://127.0.0.1:8123/raffle_draw/02/Details_Enter_Area.png" alt="">
+                    <input type="tel" id="mobile_number" name="mobile_number" placeholder="Mobile Number" autocomplete="tel" required>
+                </div>
+            </form>
+            <p class="error-text" id="details-error" hidden></p>
+
+            <div class="spacer"></div>
+            <button type="button" class="img-button" id="btn-continue">
+                <img src="http://127.0.0.1:8123/raffle_draw/02/Button_02.png" alt="Continue">
+            </button>
+        </section>
+
+        
+        <section id="screen-3" class="screen" style="background-image:url('http://127.0.0.1:8123/raffle_draw/03/BG.jpg')">
+            <img class="headline-logo small" src="http://127.0.0.1:8123/raffle_draw/03/Logo_03.png" alt="Accelerating towards the future">
+            <img class="tagline small" src="http://127.0.0.1:8123/raffle_draw/03/Text_03.png" alt="Verify your details">
+
+            <div class="verify-card">
+                <img src="http://127.0.0.1:8123/raffle_draw/03/Text_Frame.png" alt="">
+                <div class="verify-content">
+                    <div class="verify-row">
+                        <span class="verify-label">First Name</span>
+                        <span class="verify-value" id="verify-first-name"></span>
+                    </div>
+                    <div class="verify-row">
+                        <span class="verify-label">Last Name</span>
+                        <span class="verify-value" id="verify-last-name"></span>
+                    </div>
+                    <div class="verify-row">
+                        <span class="verify-label">Mobile Number</span>
+                        <span class="verify-value" id="verify-mobile-number"></span>
+                    </div>
+                </div>
+            </div>
+            <p class="error-text" id="submit-error" hidden></p>
+
+            <div class="spacer"></div>
+            <div class="button-stack">
+                <button type="button" class="img-button" id="btn-edit">
+                    <img src="http://127.0.0.1:8123/raffle_draw/03/Button_03_2.png" alt="Edit Details">
+                </button>
+
+                 <button type="button" class="img-button" id="btn-submit">
+                    <img src="http://127.0.0.1:8123/raffle_draw/03/Button_03_1.png" alt="Confirm & Submit">
+                </button>
+            </div>
+        </section>
+
+        
+        <section id="screen-4" class="screen" style="background-image:url('http://127.0.0.1:8123/raffle_draw/03/BG.jpg')">
+            <div class="spacer"></div>
+            <h1 class="success-title">Thank You!</h1>
+            <p class="success-text">Your entry has been submitted. Good luck in the Hero | Abans Auto Grand Draw!</p>
+            <div class="spacer"></div>
+        </section>
+
+    </div>
+
+    <script>
+        (function () {
+            var state = {};
+            var csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+
+            function showScreen(id) {
+                document.querySelectorAll('.screen').forEach(function (s) {
+                    s.classList.remove('active');
+                });
+                document.getElementById(id).classList.add('active');
+                window.scrollTo(0, 0);
+            }
+
+            document.getElementById('btn-start').addEventListener('click', function () {
+                showScreen('screen-2');
+            });
+
+            document.getElementById('btn-continue').addEventListener('click', function () {
+                var firstName = document.getElementById('first_name').value.trim();
+                var lastName = document.getElementById('last_name').value.trim();
+                var mobileNumber = document.getElementById('mobile_number').value.trim();
+                var errorEl = document.getElementById('details-error');
+
+                if (!firstName || !lastName || !mobileNumber) {
+                    errorEl.textContent = 'Please fill in first name, last name and mobile number.';
+                    errorEl.hidden = false;
+                    return;
+                }
+
+                if (!/^[0-9+ -]{7,20}$/.test(mobileNumber)) {
+                    errorEl.textContent = 'Please enter a valid mobile number.';
+                    errorEl.hidden = false;
+                    return;
+                }
+
+                errorEl.hidden = true;
+                state.first_name = firstName;
+                state.last_name = lastName;
+                state.mobile_number = mobileNumber;
+
+                document.getElementById('verify-first-name').textContent = firstName;
+                document.getElementById('verify-last-name').textContent = lastName;
+                document.getElementById('verify-mobile-number').textContent = mobileNumber;
+
+                showScreen('screen-3');
+            });
+
+            document.getElementById('btn-edit').addEventListener('click', function () {
+                showScreen('screen-2');
+            });
+
+            document.getElementById('btn-submit').addEventListener('click', function () {
+                var submitBtn = document.getElementById('btn-submit');
+                var errorEl = document.getElementById('submit-error');
+                errorEl.hidden = true;
+                submitBtn.disabled = true;
+
+                fetch('http://127.0.0.1:8123/raffle-entries', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        'X-CSRF-TOKEN': csrfToken
+                    },
+                    body: JSON.stringify(state)
+                })
+                    .then(function (response) {
+                        if (!response.ok) {
+                            throw new Error('Submit failed');
+                        }
+                        return response.json();
+                    })
+                    .then(function () {
+                        showScreen('screen-4');
+                    })
+                    .catch(function () {
+                        errorEl.textContent = 'Something went wrong. Please try again.';
+                        errorEl.hidden = false;
+                    })
+                    .finally(function () {
+                        submitBtn.disabled = false;
+                    });
+            });
+        })();
+    </script>
+
+<script>
+window.addEventListener('load', function(){
+  var el = document.querySelector('.headline-logo');
+  var r = el.getBoundingClientRect();
+  var shell = document.querySelector('.raffle-shell').getBoundingClientRect();
+  var scr = document.querySelector('#screen-1').getBoundingClientRect();
+  var d = document.createElement('div');
+  d.style.position='fixed'; d.style.top='0'; d.style.left='0'; d.style.background='yellow'; d.style.color='black'; d.style.zIndex='9999'; d.style.fontSize='14px'; d.style.padding='4px';
+  d.textContent = 'img:'+JSON.stringify(r)+' shell:'+JSON.stringify(shell)+' screen:'+JSON.stringify(scr)+' vw:'+window.innerWidth+' natW:'+el.naturalWidth+' natH:'+el.naturalHeight;
+  document.body.appendChild(d);
+});
+</script>
+</body>
+
+</html>
