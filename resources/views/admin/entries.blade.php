@@ -40,6 +40,20 @@
             font-size: 14px;
         }
 
+        nav {
+            margin-top: 6px;
+        }
+
+        nav a {
+            color: #ff9d9d;
+            font-size: 13px;
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            color: #fff;
+        }
+
         form.logout button {
             padding: 9px 16px;
             border: 1px solid #5a1414;
@@ -145,6 +159,7 @@
             <div>
                 <h1>Grand Draw Entries</h1>
                 <div class="count">{{ $entries->total() }} total submissions</div>
+                <nav><a href="{{ route('admin.winner-draw') }}">Winner Draw &rarr;</a></nav>
             </div>
             <form class="logout" method="POST" action="{{ route('admin.logout') }}">
                 @csrf
