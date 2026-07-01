@@ -40,18 +40,31 @@
             font-size: 14px;
         }
 
-        nav {
-            margin-top: 6px;
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        nav a {
-            color: #ff9d9d;
-            font-size: 13px;
+        .btn {
+            display: inline-block;
+            padding: 9px 16px;
+            border-radius: 6px;
+            font-size: 14px;
             text-decoration: none;
+            cursor: pointer;
+            border: 1px solid transparent;
         }
 
-        nav a:hover {
+        .btn-primary {
+            background: #e11d1d;
             color: #fff;
+            font-weight: bold;
+            box-shadow: 0 0 16px rgba(225, 29, 29, 0.45);
+        }
+
+        .btn-primary:hover {
+            background: #c81616;
         }
 
         form.logout button {
@@ -159,12 +172,14 @@
             <div>
                 <h1>Grand Draw Entries</h1>
                 <div class="count">{{ $entries->total() }} total submissions</div>
-                <nav><a href="{{ route('admin.winner-draw') }}">Winner Draw &rarr;</a></nav>
             </div>
-            <form class="logout" method="POST" action="{{ route('admin.logout') }}">
-                @csrf
-                <button type="submit">Log Out</button>
-            </form>
+            <div class="header-actions">
+                <a class="btn btn-primary" href="{{ route('admin.winner-draw') }}">Winner Draw</a>
+                <form class="logout" method="POST" action="{{ route('admin.logout') }}">
+                    @csrf
+                    <button type="submit">Log Out</button>
+                </form>
+            </div>
         </header>
 
         @if ($entries->isEmpty())
