@@ -53,6 +53,13 @@ class AdminController extends Controller
         return view('admin.entries', compact('entries'));
     }
 
+    public function destroy(RaffleEntry $entry): RedirectResponse
+    {
+        $entry->delete();
+
+        return redirect()->route('admin.entries')->with('status', 'Entry deleted.');
+    }
+
     private function isAdmin(Request $request): bool
     {
         return (bool) $request->session()->get('is_admin');

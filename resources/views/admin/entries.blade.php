@@ -118,6 +118,8 @@
         .pagination {
             margin-top: 20px;
             display: flex;
+            align-items: center;
+            justify-content: center;
             gap: 8px;
             flex-wrap: wrap;
         }
@@ -133,6 +135,42 @@
 
         .pagination a:hover {
             background: #260808;
+        }
+
+        .pagination span.disabled {
+            color: #5a3d3d;
+            border-color: #2a0a0a;
+        }
+
+        .pagination span.current {
+            background: #e11d1d;
+            border-color: #e11d1d;
+            font-weight: bold;
+        }
+
+        .status {
+            background: rgba(34, 197, 94, 0.12);
+            border: 1px solid #22c55e;
+            color: #86efac;
+            padding: 10px 14px;
+            border-radius: 6px;
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+
+        .delete-btn {
+            padding: 7px 12px;
+            border: 1px solid #5a1414;
+            background: #260808;
+            color: #ff9d9d;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .delete-btn:hover {
+            background: #7a1414;
+            color: #fff;
         }
 
         @media (max-width: 640px) {
@@ -182,6 +220,10 @@
             </div>
         </header>
 
+        @if (session('status'))
+            <div class="status">{{ session('status') }}</div>
+        @endif
+
         @if ($entries->isEmpty())
             <div class="empty">No entries submitted yet.</div>
         @else
@@ -193,6 +235,7 @@
                         <th>Last Name</th>
                         <th>Mobile Number</th>
                         <th>Submitted At</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -203,14 +246,41 @@
                             <td data-label="Last Name">{{ $entry->last_name }}</td>
                             <td data-label="Mobile Number">{{ $entry->mobile_number }}</td>
                             <td data-label="Submitted At">{{ $entry->created_at->format('Y-m-d H:i') }}</td>
+                            <td data-label="Actions">
+                                <form method="POST" action="{{ route('admin.entries.destroy', $entry) }}" onsubmit="return confirm('Delete this entry? This cannot be undone.');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="delete-btn">Delete</button>
+                                </form>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
 
-            <div class="pagination">
-                {{ $entries->links() }}
-            </div>
+            @if ($entries->hasPages())
+                <div class="pagination">
+                    @if ($entries->onFirstPage())
+                        <span class="disabled">&laquo; Prev</span>
+                    @else
+                        <a href="{{ $entries->previousPageUrl() }}">&laquo; Prev</a>
+                    @endif
+
+                    @for ($page = 1; $page <= $entries->lastPage(); $page++)
+                        @if ($page === $entries->currentPage())
+                            <span class="current">{{ $page }}</span>
+                        @else
+                            <a href="{{ $entries->url($page) }}">{{ $page }}</a>
+                        @endif
+                    @endfor
+
+                    @if ($entries->hasMorePages())
+                        <a href="{{ $entries->nextPageUrl() }}">Next &raquo;</a>
+                    @else
+                        <span class="disabled">Next &raquo;</span>
+                    @endif
+                </div>
+            @endif
         @endif
     </div>
 </body>

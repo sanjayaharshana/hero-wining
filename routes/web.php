@@ -15,6 +15,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::middleware('admin.auth')->group(function () {
         Route::get('/', [AdminController::class, 'index'])->name('entries');
+        Route::delete('/{entry}', [AdminController::class, 'destroy'])->name('entries.destroy');
         Route::get('/winner-draw', [WinnerDrawController::class, 'show'])->name('winner-draw');
         Route::post('/winner-draw/draw', [WinnerDrawController::class, 'draw'])->name('winner-draw.draw');
         Route::post('/winner-draw/reset', [WinnerDrawController::class, 'reset'])->name('winner-draw.reset');
