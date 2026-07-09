@@ -158,7 +158,7 @@
 
     <script>
         (function () {
-            var pool = @json($pool->map(fn ($entry) => $entry->first_name . ' ' . $entry->last_name)->values());
+            var pool = @json($pool->pluck('name')->values());
             var csrfToken = document.querySelector('meta[name="csrf-token"]').content;
             var boardLogo = document.getElementById('board-logo');
             var ledText = document.getElementById('led-text');
@@ -219,14 +219,14 @@
                     }
 
                     var winner = result.data;
-                    var fullName = winner.first_name + ' ' + winner.last_name;
 
-                    ledText.textContent = fullName;
+                    ledText.textContent = winner.name;
                     ledText.classList.add('reveal');
-                    ledSub.textContent = winner.mobile_number_masked;
+                    ledSub.textContent = '';
+                    ledSub.classList.remove('visible');
 
                     pool = pool.filter(function (name) {
-                        return name !== fullName;
+                        return name !== winner.name;
                     });
 
                     drawing = false;

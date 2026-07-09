@@ -6,6 +6,7 @@ use App\Models\RaffleEntry;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class AdminController extends Controller
 {
@@ -51,6 +52,33 @@ class AdminController extends Controller
         $entries = RaffleEntry::latest()->paginate(20);
 
         return view('admin.entries', compact('entries'));
+    }
+
+    public function exportCsv(): StreamedResponse
+    {
+        $filename = 'flora-entries-'.now()->format('Y-m-d-His').'.csv';
+
+        return response()->streamDownload(function () {
+            $handle = fopen('php://output', 'w');
+
+            fputcsv($handle, ['ID', 'Name', 'Favourite Dip', 'Winner', 'Submitted At']);
+
+            RaffleEntry::orderBy('id')->chunk(200, function ($entries) use ($handle) {
+                foreach ($entries as $entry) {
+                    fputcsv($handle, [
+                        $entry->id,
+                        $entry->name,
+                        $entry->favourite_dip,
+                        $entry->is_winner ? 'Yes' : 'No',
+                        $entry->created_at->format('Y-m-d H:i:s'),
+                    ]);
+                }
+            });
+
+            fclose($handle);
+        }, $filename, [
+            'Content-Type' => 'text/csv',
+        ]);
     }
 
     public function destroy(RaffleEntry $entry): RedirectResponse

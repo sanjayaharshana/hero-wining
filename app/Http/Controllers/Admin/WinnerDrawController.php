@@ -16,7 +16,7 @@ class WinnerDrawController extends Controller
     {
         $pool = RaffleEntry::eligible()
             ->orderBy('id')
-            ->get(['id', 'first_name', 'last_name']);
+            ->get(['id', 'name']);
 
         $winners = RaffleEntry::winners()->get();
 
@@ -55,9 +55,7 @@ class WinnerDrawController extends Controller
 
         return response()->json([
             'id' => $winner->id,
-            'first_name' => $winner->first_name,
-            'last_name' => $winner->last_name,
-            'mobile_number_masked' => $this->maskMobile($winner->mobile_number),
+            'name' => $winner->name,
             'remaining' => RaffleEntry::eligible()->count(),
         ]);
     }
@@ -70,21 +68,5 @@ class WinnerDrawController extends Controller
         ]);
 
         return redirect()->route('admin.winner-draw')->with('status', 'All winners have been reset.');
-    }
-
-    private function maskMobile(string $mobile): string
-    {
-        $digits = preg_replace('/\s+/', '', $mobile);
-        $length = strlen($digits);
-
-        if ($length <= 5) {
-            return $digits;
-        }
-
-        $visibleStart = substr($digits, 0, 3);
-        $visibleEnd = substr($digits, -2);
-        $masked = str_repeat('•', max(0, $length - 5));
-
-        return "{$visibleStart}{$masked}{$visibleEnd}";
     }
 }

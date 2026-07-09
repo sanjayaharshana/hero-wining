@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\RaffleEntry;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class RaffleEntryController extends Controller
 {
@@ -15,9 +16,14 @@ class RaffleEntryController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'first_name' => ['required', 'string', 'max:255'],
-            'last_name' => ['required', 'string', 'max:255'],
-            'mobile_number' => ['required', 'string', 'max:20', 'regex:/^[0-9+ -]{7,20}$/'],
+            'name' => ['required', 'string', 'max:255'],
+            'favourite_dip' => ['required', 'string', Rule::in([
+                'Roasted Garlic and Herbs',
+                'Sundried Tomato and Hazelnuts',
+                'Smoked Paprika and Lime',
+                'Olives and Capers',
+                'Bee Honey and Flaky Salt',
+            ])],
         ]);
 
         $entry = RaffleEntry::create($validated);

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Raffle Entries - Hero | Abans Auto Grand Draw</title>
+    <title>Flora Admin Panel</title>
     <style>
         * { box-sizing: border-box; }
 
@@ -65,6 +65,16 @@
 
         .btn-primary:hover {
             background: #c81616;
+        }
+
+        .btn-secondary {
+            background: #009a4c;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .btn-secondary:hover {
+            background: #007a3d;
         }
 
         form.logout button {
@@ -208,11 +218,11 @@
     <div class="wrap">
         <header>
             <div>
-                <h1>Grand Draw Entries</h1>
+                <h1>Flora Admin Panel</h1>
                 <div class="count">{{ $entries->total() }} total submissions</div>
             </div>
             <div class="header-actions">
-                <a class="btn btn-primary" href="{{ route('admin.winner-draw') }}">Winner Draw</a>
+                <a class="btn btn-secondary" href="{{ route('admin.entries.export') }}">Export CSV</a>
                 <form class="logout" method="POST" action="{{ route('admin.logout') }}">
                     @csrf
                     <button type="submit">Log Out</button>
@@ -231,9 +241,8 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Mobile Number</th>
+                        <th>Name</th>
+                        <th>Favourite Dip</th>
                         <th>Submitted At</th>
                         <th>Actions</th>
                     </tr>
@@ -242,9 +251,8 @@
                     @foreach ($entries as $entry)
                         <tr>
                             <td data-label="#">{{ $entry->id }}</td>
-                            <td data-label="First Name">{{ $entry->first_name }}</td>
-                            <td data-label="Last Name">{{ $entry->last_name }}</td>
-                            <td data-label="Mobile Number">{{ $entry->mobile_number }}</td>
+                            <td data-label="Name">{{ $entry->name }}</td>
+                            <td data-label="Favourite Dip">{{ $entry->favourite_dip }}</td>
                             <td data-label="Submitted At">{{ $entry->created_at->format('Y-m-d H:i') }}</td>
                             <td data-label="Actions">
                                 <form method="POST" action="{{ route('admin.entries.destroy', $entry) }}" onsubmit="return confirm('Delete this entry? This cannot be undone.');">
