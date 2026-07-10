@@ -149,7 +149,8 @@
             width: 92%;
         }
 
-        .field-wrap input {
+        .field-wrap input,
+        .field-wrap select {
             width: 100%;
             border: 2px solid #009a4c;
             border-radius: 8px;
@@ -161,12 +162,27 @@
             padding: calc(var(--card-w) * 0.035);
         }
 
+        .field-wrap select {
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23009a4c' stroke-width='3'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+            background-size: 18px;
+            padding-right: calc(var(--card-w) * 0.08);
+        }
+
+        .field-wrap select:invalid {
+            color: #9a9a9a;
+        }
+
         .field-wrap input::placeholder {
             color: #9a9a9a;
             font-weight: bold;
         }
 
-        .field-wrap input:focus {
+        .field-wrap input:focus,
+        .field-wrap select:focus {
             border-color: #007a3d;
             box-shadow: 0 0 0 3px rgba(0, 154, 76, 0.2);
         }
@@ -311,6 +327,15 @@
                 <div class="field-wrap">
                     <input type="text" id="name" name="name" placeholder="Name" autocomplete="name" required>
                 </div>
+                <div class="field-wrap">
+                    <select id="stall_number" name="stall_number" required>
+                        <option value="" disabled selected>Stall Number</option>
+                        <option value="01">01</option>
+                        <option value="02">02</option>
+                        <option value="03">03</option>
+                        <option value="04">04</option>
+                    </select>
+                </div>
             </form>
             <p class="error-text" id="details-error" hidden></p>
 
@@ -340,6 +365,10 @@
             <div class="verify-row">
                 <span class="verify-label">Name</span>
                 <span class="verify-value" id="verify-name"></span>
+            </div>
+            <div class="verify-row">
+                <span class="verify-label">Stall Number</span>
+                <span class="verify-value" id="verify-stall-number"></span>
             </div>
             <div class="verify-row">
                 <span class="verify-label">Favourite Dip</span>
@@ -400,6 +429,7 @@
 
             document.getElementById('btn-continue').addEventListener('click', function () {
                 var name = document.getElementById('name').value.trim();
+                var stallNumber = document.getElementById('stall_number').value;
                 var errorEl = document.getElementById('details-error');
 
                 if (!name) {
@@ -408,10 +438,18 @@
                     return;
                 }
 
+                if (!stallNumber) {
+                    errorEl.textContent = 'Please select your stall number.';
+                    errorEl.hidden = false;
+                    return;
+                }
+
                 errorEl.hidden = true;
                 state.name = name;
+                state.stall_number = stallNumber;
 
                 document.getElementById('verify-name').textContent = name;
+                document.getElementById('verify-stall-number').textContent = stallNumber;
 
                 showScreen('screen-quiz');
             });

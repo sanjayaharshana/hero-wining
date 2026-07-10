@@ -10,9 +10,9 @@
         html, body {
             margin: 0;
             padding: 0;
-            background: #0a0000;
+            background: #f5f6f7;
             font-family: Arial, Helvetica, sans-serif;
-            color: #fff;
+            color: #1a1a1a;
         }
 
         .wrap {
@@ -33,10 +33,11 @@
         h1 {
             font-size: 22px;
             margin: 0;
+            color: #1a1a1a;
         }
 
         .count {
-            color: #d99;
+            color: #6b7280;
             font-size: 14px;
         }
 
@@ -57,45 +58,45 @@
         }
 
         .btn-primary {
-            background: #e11d1d;
-            color: #fff;
-            font-weight: bold;
-            box-shadow: 0 0 16px rgba(225, 29, 29, 0.45);
-        }
-
-        .btn-primary:hover {
-            background: #c81616;
-        }
-
-        .btn-secondary {
             background: #009a4c;
             color: #fff;
             font-weight: bold;
         }
 
-        .btn-secondary:hover {
+        .btn-primary:hover {
             background: #007a3d;
+        }
+
+        .btn-secondary {
+            background: #ffffff;
+            color: #1a1a1a;
+            font-weight: bold;
+            border: 1px solid #d1d5db;
+        }
+
+        .btn-secondary:hover {
+            background: #f3f4f6;
         }
 
         form.logout button {
             padding: 9px 16px;
-            border: 1px solid #5a1414;
-            background: #260808;
-            color: #ff9d9d;
+            border: 1px solid #d1d5db;
+            background: #ffffff;
+            color: #374151;
             border-radius: 6px;
             cursor: pointer;
             font-size: 14px;
         }
 
         form.logout button:hover {
-            background: #3a0d0d;
+            background: #f3f4f6;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            background: #150505;
-            border: 1px solid #3a0d0d;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
             border-radius: 8px;
             overflow: hidden;
         }
@@ -104,12 +105,12 @@
             text-align: left;
             padding: 12px 14px;
             font-size: 14px;
-            border-bottom: 1px solid #2a0a0a;
+            border-bottom: 1px solid #e5e7eb;
         }
 
         th {
-            background: #200707;
-            color: #e11d1d;
+            background: #f3f4f6;
+            color: #009a4c;
             text-transform: uppercase;
             font-size: 12px;
             letter-spacing: 0.05em;
@@ -122,7 +123,10 @@
         .empty {
             padding: 40px 20px;
             text-align: center;
-            color: #d99;
+            color: #6b7280;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
         }
 
         .pagination {
@@ -137,31 +141,33 @@
         .pagination a, .pagination span {
             padding: 8px 12px;
             border-radius: 6px;
-            border: 1px solid #3a0d0d;
-            color: #fff;
+            border: 1px solid #d1d5db;
+            background: #ffffff;
+            color: #1a1a1a;
             text-decoration: none;
             font-size: 14px;
         }
 
         .pagination a:hover {
-            background: #260808;
+            background: #f3f4f6;
         }
 
         .pagination span.disabled {
-            color: #5a3d3d;
-            border-color: #2a0a0a;
+            color: #9ca3af;
+            border-color: #e5e7eb;
         }
 
         .pagination span.current {
-            background: #e11d1d;
-            border-color: #e11d1d;
+            background: #009a4c;
+            border-color: #009a4c;
+            color: #fff;
             font-weight: bold;
         }
 
         .status {
-            background: rgba(34, 197, 94, 0.12);
-            border: 1px solid #22c55e;
-            color: #86efac;
+            background: #ecfdf3;
+            border: 1px solid #009a4c;
+            color: #007a3d;
             padding: 10px 14px;
             border-radius: 6px;
             font-size: 14px;
@@ -170,17 +176,18 @@
 
         .delete-btn {
             padding: 7px 12px;
-            border: 1px solid #5a1414;
-            background: #260808;
-            color: #ff9d9d;
+            border: 1px solid #d1d5db;
+            background: #ffffff;
+            color: #374151;
             border-radius: 6px;
             cursor: pointer;
             font-size: 13px;
         }
 
         .delete-btn:hover {
-            background: #7a1414;
+            background: #1a1a1a;
             color: #fff;
+            border-color: #1a1a1a;
         }
 
         @media (max-width: 640px) {
@@ -194,19 +201,19 @@
 
             tr {
                 margin-bottom: 12px;
-                border: 1px solid #3a0d0d;
+                border: 1px solid #e5e7eb;
                 border-radius: 8px;
                 overflow: hidden;
             }
 
             td {
-                border-bottom: 1px solid #2a0a0a;
+                border-bottom: 1px solid #e5e7eb;
             }
 
             td::before {
                 content: attr(data-label);
                 display: block;
-                color: #e11d1d;
+                color: #009a4c;
                 font-size: 11px;
                 text-transform: uppercase;
                 margin-bottom: 4px;
@@ -242,6 +249,7 @@
                     <tr>
                         <th>#</th>
                         <th>Name</th>
+                        <th>Stall Number</th>
                         <th>Favourite Dip</th>
                         <th>Submitted At</th>
                         <th>Actions</th>
@@ -252,6 +260,7 @@
                         <tr>
                             <td data-label="#">{{ $entry->id }}</td>
                             <td data-label="Name">{{ $entry->name }}</td>
+                            <td data-label="Stall Number">{{ $entry->stall_number }}</td>
                             <td data-label="Favourite Dip">{{ $entry->favourite_dip }}</td>
                             <td data-label="Submitted At">{{ $entry->created_at->format('Y-m-d H:i') }}</td>
                             <td data-label="Actions">

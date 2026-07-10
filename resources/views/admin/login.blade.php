@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Admin Login - Hero | Abans Auto Grand Draw</title>
+    <title>Flora Admin Panel - Login</title>
     <style>
         * { box-sizing: border-box; }
 
@@ -11,7 +11,7 @@
             margin: 0;
             padding: 0;
             min-height: 100dvh;
-            background: #0a0000;
+            background: #f5f6f7;
             font-family: Arial, Helvetica, sans-serif;
             display: flex;
             align-items: center;
@@ -23,14 +23,14 @@
             max-width: 360px;
             margin: 24px;
             padding: 32px 28px;
-            background: #180505;
-            border: 1px solid #4d0f0f;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
             border-radius: 10px;
-            box-shadow: 0 0 40px rgba(255, 0, 0, 0.15);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
         }
 
         h1 {
-            color: #fff;
+            color: #1a1a1a;
             font-size: 22px;
             text-align: center;
             margin: 0 0 24px;
@@ -38,7 +38,7 @@
 
         label {
             display: block;
-            color: #d99;
+            color: #6b7280;
             font-size: 13px;
             font-weight: bold;
             margin-bottom: 6px;
@@ -50,16 +50,17 @@
             width: 100%;
             padding: 12px 14px;
             border-radius: 6px;
-            border: 1px solid #5a1414;
-            background: #260808;
-            color: #fff;
+            border: 1px solid #d1d5db;
+            background: #ffffff;
+            color: #1a1a1a;
             font-size: 16px;
             margin-bottom: 18px;
         }
 
         input[type="password"]:focus {
             outline: none;
-            border-color: #e11d1d;
+            border-color: #009a4c;
+            box-shadow: 0 0 0 3px rgba(0, 154, 76, 0.15);
         }
 
         button {
@@ -67,7 +68,7 @@
             padding: 13px;
             border: none;
             border-radius: 6px;
-            background: #e11d1d;
+            background: #009a4c;
             color: #fff;
             font-size: 16px;
             font-weight: bold;
@@ -76,13 +77,13 @@
         }
 
         button:hover {
-            background: #c81616;
+            background: #007a3d;
         }
 
         .error {
-            background: rgba(225, 29, 29, 0.15);
-            border: 1px solid #e11d1d;
-            color: #ff9d9d;
+            background: #fef2f2;
+            border: 1px solid #d1d5db;
+            color: #1a1a1a;
             padding: 10px 12px;
             border-radius: 6px;
             font-size: 14px;
@@ -92,7 +93,7 @@
 </head>
 <body>
     <div class="login-card">
-        <h1>Admin Login</h1>
+        <h1>Flora Admin Panel</h1>
 
         @if ($errors->any())
             <div class="error">{{ $errors->first() }}</div>

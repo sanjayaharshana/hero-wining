@@ -24,6 +24,7 @@ class RaffleEntryController extends Controller
                 'Olives and Capers',
                 'Bee Honey and Flaky Salt',
             ])],
+            'stall_number' => ['required', 'string', Rule::in(['01', '02', '03', '04'])],
         ]);
 
         $entry = RaffleEntry::create($validated);

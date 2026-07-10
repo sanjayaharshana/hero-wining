@@ -10,6 +10,7 @@ class RaffleEntry extends Model
     protected $fillable = [
         'name',
         'favourite_dip',
+        'stall_number',
     ];
 
     protected $casts = [

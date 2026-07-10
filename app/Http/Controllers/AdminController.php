@@ -61,13 +61,14 @@ class AdminController extends Controller
         return response()->streamDownload(function () {
             $handle = fopen('php://output', 'w');
 
-            fputcsv($handle, ['ID', 'Name', 'Favourite Dip', 'Winner', 'Submitted At']);
+            fputcsv($handle, ['ID', 'Name', 'Stall Number', 'Favourite Dip', 'Winner', 'Submitted At']);
 
             RaffleEntry::orderBy('id')->chunk(200, function ($entries) use ($handle) {
                 foreach ($entries as $entry) {
                     fputcsv($handle, [
                         $entry->id,
                         $entry->name,
+                        $entry->stall_number,
                         $entry->favourite_dip,
                         $entry->is_winner ? 'Yes' : 'No',
                         $entry->created_at->format('Y-m-d H:i:s'),
