@@ -56,7 +56,8 @@
         }
 
         #screen-2,
-        #screen-3 {
+        #screen-3,
+        #screen-4 {
             justify-content: center;
         }
 
@@ -384,10 +385,11 @@
 
         {{-- Screen 4: Thank you --}}
         <section id="screen-4" class="screen">
-            <div class="spacer"></div>
             <h1 class="success-title">Thank You!</h1>
             <p class="success-text">Your entry has been submitted. Good luck!</p>
-            <div class="spacer"></div>
+            <div class="button-stack">
+                <button type="button" class="cta-button" id="btn-home">Home</button>
+            </div>
         </section>
 
     </div>
@@ -489,6 +491,29 @@
                     .finally(function () {
                         submitBtn.disabled = false;
                     });
+            });
+
+            function resetEntryForm() {
+                state = {};
+
+                document.getElementById('name').value = '';
+                document.getElementById('stall_number').value = '';
+                document.getElementById('details-error').hidden = true;
+
+                document.querySelectorAll('.quiz-option').forEach(function (option) {
+                    option.classList.remove('selected');
+                });
+                quizContinueBtn.disabled = true;
+
+                document.getElementById('verify-name').textContent = '';
+                document.getElementById('verify-stall-number').textContent = '';
+                document.getElementById('verify-dip').textContent = '';
+                document.getElementById('submit-error').hidden = true;
+            }
+
+            document.getElementById('btn-home').addEventListener('click', function () {
+                resetEntryForm();
+                showScreen('screen-1');
             });
         })();
     </script>

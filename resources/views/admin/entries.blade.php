@@ -247,7 +247,6 @@
             <table>
                 <thead>
                     <tr>
-                        <th>#</th>
                         <th>Name</th>
                         <th>Stall Number</th>
                         <th>Favourite Dip</th>
@@ -258,7 +257,6 @@
                 <tbody>
                     @foreach ($entries as $entry)
                         <tr>
-                            <td data-label="#">{{ $entry->id }}</td>
                             <td data-label="Name">{{ $entry->name }}</td>
                             <td data-label="Stall Number">{{ $entry->stall_number }}</td>
                             <td data-label="Favourite Dip">{{ $entry->favourite_dip }}</td>
